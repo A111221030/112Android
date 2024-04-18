@@ -2,8 +2,10 @@ package com.example.ch5_3;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         TextView txvOutput = (TextView) findViewById(R.id.txvOutput);
-        txvOutput.setTextSize(original_size);
+        txvOutput.setTextSize(TypedValue.COMPLEX_UNIT_PX, original_size);
         Button btnEnlarge = (Button) findViewById(R.id.btnEnlarge);
         btnEnlarge.setOnClickListener(this);
         btnEnlarge.setOnLongClickListener(this);
@@ -28,8 +30,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v){
         TextView txvOutput = (TextView) findViewById(R.id.txvOutput);
         float size = txvOutput.getTextSize();
-        Log.v("SIZE", "size = " + size);
-        txvOutput.setTextSize(size + 1);
+        Log.v("SIZE", "size = " + px2sp(this, size));
+        txvOutput.setTextSize(px2sp(this, size) + 5);
 
     }
 
@@ -38,5 +40,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView txvOutput = (TextView) findViewById(R.id.txvOutput);
         txvOutput.setTextSize(original_size);
         return false;
+    }
+    public static int px2sp(Context context, float pxValue){
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (pxValue / fontScale + 0.5f);
     }
 }
