@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -28,7 +29,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String[] tempSet;
-
+                if(position == 3)
+                    tempSet = tempSet2;
+                else
+                    tempSet =tempSet1;
+                ArrayAdapter<String> tempAd =
+                        new ArrayAdapter<>(MainActivity.this,
+                                android.R.layout.simple_spinner_dropdown_item, tempSet);
+                tempAd.setDropDownViewResource();
+                temp.setAdapter();
             }
 
             @Override
